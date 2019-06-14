@@ -13,7 +13,6 @@ INDEX VERSION 1.131+D:\Boot+React\Java\.metadata\.plugins\org.eclipse.jdt.core
 3180474127.index
 1471900246.index
 2731298337.index
-782061919.index
 2044896080.index
 3389878914.index
 2017989785.index
