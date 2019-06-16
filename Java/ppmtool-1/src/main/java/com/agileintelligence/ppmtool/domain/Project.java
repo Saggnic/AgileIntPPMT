@@ -1,28 +1,42 @@
 package com.agileintelligence.ppmtool.domain;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Project {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Project name cannot be blank")
 	private String projectName;
+	@NotBlank(message = "Project Identifier cannot be blank")
+	@Size(min = 4, max = 5, message = "Please use 4-5 characters")
+	@Column(updatable = false, unique = true)
 	private String projectIdentifier;
+	@NotBlank(message = "Description cannot be blank")
 	private String description;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date startDate;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date endDate;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date createdAt;
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updatedAt;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -87,19 +101,18 @@ public class Project {
 		this.updatedAt = updatedAt;
 	}
 
-	public Project() {}
-	
+	public Project() {
+	}
+
 	@PrePersist
 	protected void onCreate() {
-		this.createdAt =new Date();
-		
+		this.createdAt = new Date();
+
 	}
-	
+
 	@PreUpdate
 	protected void onUpdate() {
-		this.updatedAt=new Date();
+		this.updatedAt = new Date();
 	}
-	
-	
 
 }

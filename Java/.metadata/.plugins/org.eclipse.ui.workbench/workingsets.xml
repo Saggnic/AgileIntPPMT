@@ -8,4 +8,5 @@
 <item elementID="=ppmtool/src\/test\/java" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1560217825005_2" label="Window Working Set" name="Aggregate for window 1560217825004"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1560566863894_3" label="Window Working Set" name="Aggregate for window 1560566863894"/>
 </workingSetManager>
