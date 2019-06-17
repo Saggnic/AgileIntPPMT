@@ -9,11 +9,8 @@ import com.agileintelligence.ppmtool.domain.Project;
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
 	@Override
-	default Iterable<Project> findAllById(Iterable<Long> ids) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+	Iterable<Project> findAll();
+
+	public Project findByProjectIdentifier(String projectIdentifier);
 
 }
