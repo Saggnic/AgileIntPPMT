@@ -76,4 +76,12 @@ public class ProjectController {
 		projectService.deleteProjectByIdentifier(projectIdentifier);
 		return new ResponseEntity<String>("Project " + projectIdentifier + " was deleted", HttpStatus.OK);
 	}
+	
+	/*
+	 * UPDATE
+	 * while creating a project an Id for the project is generated in the database.
+	 * Jpa is smart enough to know that if we pass the same Id , we actually mean update not create
+	 * So all we need for updating is use create POST method but pass the existing ID along with it
+	 * 
+	 */
 }
