@@ -36,7 +36,7 @@ class AddProject extends Component {
           //check name attribute input fields
           //create constructor
           //sset state
-          //set value of inpit field
+          //set value of input field
           //create onChange function
           //set onChange on input field
           //bind on construnctor
