@@ -1,32 +1,38 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProject } from "../../actions/projectActions";
 
 class AddProject extends Component {
   constructor() {
     super();
 
     this.state = {
-      description: " ",
-      projectIdentifier: "",
       projectName: "",
+      projectIdentifier: "",
+      description: "",
       start_date: "",
       end_date: ""
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e) {
-    //this.setState({ projectName: e.target.value }); long way
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
     e.preventDefault();
     const newProject = {
-      description: this.state.description,
-      projectIdentifier: this.state.projectIdentifier,
       projectName: this.state.projectName,
+      projectIdentifier: this.state.projectIdentifier,
+      description: this.state.description,
       start_date: this.state.start_date,
       end_date: this.state.end_date
     };
+    this.props.createProject(newProject, this.props.history);
   }
 
   render() {
@@ -35,20 +41,21 @@ class AddProject extends Component {
         {
           //check name attribute input fields
           //create constructor
-          //sset state
-          //set value of input field
+          //set state
+          //set value on input fields
           //create onChange function
-          //set onChange on input field
-          //bind on construnctor
-          //check state change in the react extensiion
+          //set onChange on each input field
+          //bind on constructor
+          //check state change in the react extension
         }
+
         <div className="project">
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h5 className="display-4 text-center">Create Project form</h5>
                 <hr />
-                <form onSubmit={this.onSubmit.bind(this)}>
+                <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
@@ -56,7 +63,7 @@ class AddProject extends Component {
                       placeholder="Project Name"
                       name="projectName"
                       value={this.state.projectName}
-                      onChange={this.onChange.bind(this)}
+                      onChange={this.onChange}
                     />
                   </div>
                   <div className="form-group">
@@ -66,7 +73,7 @@ class AddProject extends Component {
                       placeholder="Unique Project ID"
                       name="projectIdentifier"
                       value={this.state.projectIdentifier}
-                      onChange={this.onChange.bind(this)}
+                      onChange={this.onChange}
                     />
                   </div>
                   <div className="form-group">
@@ -75,7 +82,7 @@ class AddProject extends Component {
                       placeholder="Project Description"
                       name="description"
                       value={this.state.description}
-                      onChange={this.onChange.bind(this)}
+                      onChange={this.onChange}
                     />
                   </div>
                   <h6>Start Date</h6>
@@ -85,7 +92,7 @@ class AddProject extends Component {
                       className="form-control form-control-lg"
                       name="start_date"
                       value={this.state.start_date}
-                      onChange={this.onChange.bind(this)}
+                      onChange={this.onChange}
                     />
                   </div>
                   <h6>Estimated End Date</h6>
@@ -95,7 +102,7 @@ class AddProject extends Component {
                       className="form-control form-control-lg"
                       name="end_date"
                       value={this.state.end_date}
-                      onChange={this.onChange.bind(this)}
+                      onChange={this.onChange}
                     />
                   </div>
 
@@ -108,13 +115,16 @@ class AddProject extends Component {
             </div>
           </div>
         </div>
-
-        <h1>Add Project Form</h1>
       </div>
     );
   }
 }
 
-export default AddProject;
+AddProject.propTypes = {
+  createProject: PropTypes.func.isRequired
+};
 
-//"name" attributes in <form>  should exactly match java attribute name in backend
+export default connect(
+  null,
+  { createProject }
+)(AddProject);
