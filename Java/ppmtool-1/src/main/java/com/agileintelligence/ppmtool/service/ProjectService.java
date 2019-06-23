@@ -1,58 +1,54 @@
 package com.agileintelligence.ppmtool.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.agileintelligence.ppmtool.domain.Project;
 import com.agileintelligence.ppmtool.exception.ProjectIdException;
-import com.agileintelligence.ppmtool.exception.ProjectIdentifierNotFoundException;
 import com.agileintelligence.ppmtool.repository.ProjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectService {
 
-	@Autowired
-	private ProjectRepository projectRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
-	public Project saveOrUpdateProject(Project project) {
-		// Logic
+    public Project saveOrUpdateProject(Project project){
+        try{
+            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            return projectRepository.save(project);
+        }catch (Exception e){
+            throw new ProjectIdException("Project ID '"+project.getProjectIdentifier().toUpperCase()+"' already exists");
+        }
 
-		try {
-			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
-			return projectRepository.save(project);
+    }
 
-		} catch (Exception e) {
-			throw new ProjectIdException(
-					"Project Id" + project.getProjectIdentifier().toUpperCase() + "already exists");
-		}
 
-	}
+    public Project findProjectByIdentifier(String projectId){
 
-	public Project fingProjectByIdentifier(String projectIdentifier) {
-		Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
-		if (project == null) {
-			throw new ProjectIdentifierNotFoundException("Project ID " + projectIdentifier + "does not exist");
+        if(project == null){
+            throw new ProjectIdException("Project ID '"+projectId+"' does not exist");
 
-		}
-		return project;
-	}
+        }
 
-	public Iterable<Project> findAllProjects() {
-		return projectRepository.findAll();
-	}
 
-	public void deleteProjectByIdentifier(String projectIdentifier) {
-		Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+        return project;
+    }
 
-		if (project == null) {
-			throw new ProjectIdentifierNotFoundException(
-					"Project ID " + projectIdentifier + " does not exist, hence cannot be deleted");
+    public Iterable<Project> findAllProjects(){
+        return projectRepository.findAll();
+    }
 
-		}
 
-		projectRepository.delete(project);
+    public void deleteProjectByIdentifier(String projectid){
+        Project project = projectRepository.findByProjectIdentifier(projectid.toUpperCase());
 
-	}
+        if(project == null){
+            throw  new  ProjectIdException("Cannot Project with ID '"+projectid+"'. This project does not exist");
+        }
+
+        projectRepository.delete(project);
+    }
 
 }
