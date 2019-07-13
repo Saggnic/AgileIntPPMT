@@ -25,7 +25,7 @@ public class ProjectTask {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(updatable = false)
+	@Column(updatable = false, unique=true)
 	private String projectSequence;// its going to concat projectIdentifier and PTSequence
 	@NotBlank(message = "Please include a summary")
 	private String summary;

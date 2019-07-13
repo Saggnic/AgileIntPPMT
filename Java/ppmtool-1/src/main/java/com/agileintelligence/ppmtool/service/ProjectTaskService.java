@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agileintelligence.ppmtool.domain.Backlog;
+import com.agileintelligence.ppmtool.domain.Project;
 import com.agileintelligence.ppmtool.domain.ProjectTask;
+import com.agileintelligence.ppmtool.exception.ProjectIdException;
+import com.agileintelligence.ppmtool.exception.ProjectIdentifierNotFoundException;
+import com.agileintelligence.ppmtool.exception.ProjectNotFoundExeption;
 import com.agileintelligence.ppmtool.repository.BacklogRepository;
+import com.agileintelligence.ppmtool.repository.ProjectRepository;
 import com.agileintelligence.ppmtool.repository.ProjectTaskRepository;
 
 @Service
@@ -18,6 +23,9 @@ public class ProjectTaskService {
 
 	@Autowired
 	private ProjectTaskRepository projectTaskRepository;
+
+	@Autowired
+	private ProjectRepository projectRepository;
 
 	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
 
@@ -31,31 +39,62 @@ public class ProjectTaskService {
 		// INITIAL priority when priority is null
 		// Same for status
 
-		Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+		try {
+			Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
 
-		projectTask.setBacklog(backlog);
+			projectTask.setBacklog(backlog);
 
-		Integer backlogSequence = backlog.getPTSequence();
-		backlogSequence++;
-		backlog.setPTSequence(backlogSequence);
+			Integer backlogSequence = backlog.getPTSequence();
+			backlogSequence++;
+			backlog.setPTSequence(backlogSequence);
 
-		projectTask.setProjectSequence(projectIdentifier + "-" + backlogSequence);
-		projectTask.setProjectIdentifier(projectIdentifier);
+			projectTask.setProjectSequence(projectIdentifier + "-" + backlogSequence);
+			projectTask.setProjectIdentifier(projectIdentifier);
 
-		if (projectTask.getPriority() == null || projectTask.getPriority() == 0) {
-			projectTask.setPriority(3);
+			if (projectTask.getPriority() == null || projectTask.getPriority() == 0) {
+				projectTask.setPriority(3);
+			}
+
+			if (projectTask.getStatus() == null || projectTask.getStatus() == "") {
+				projectTask.setStatus("TO DO");
+			}
+		} catch (Exception e) {
+			throw new ProjectIdException("Project ID doesnot  exists");
 		}
-
-		if (projectTask.getStatus() == null || projectTask.getStatus() == "") {
-			projectTask.setStatus("TO DO");
-		}
-
 		return projectTaskRepository.save(projectTask);
 
 	}
 
 	public Iterable<ProjectTask> findBacklogById(String backlog_id) {
+		Project project = projectRepository.findByProjectIdentifier(backlog_id);
+
+		if (project == null) {
+			throw new ProjectIdentifierNotFoundException("Project Id is '" + backlog_id + "'  not found");
+		}
 		return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
+
+	}
+
+	public ProjectTask findPTBySequence(String backlog_id, String pt_id) {
+
+		Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
+
+		if (backlog == null) {
+			throw new ProjectNotFoundExeption("project with id '" + backlog_id + "' doesnot exist");
+		}
+
+		ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+
+		if (projectTask == null) {
+			throw new ProjectNotFoundExeption("project with id '" + pt_id + "' doesnot exist");
+		}
+		if (!projectTask.getProjectIdentifier().equalsIgnoreCase(backlog_id)) {
+
+			throw new ProjectNotFoundExeption(
+					"Backlog_id '" + backlog_id + "' doesnot contain" + "project task '" + pt_id + "'");
+		}
+
+		return projectTask;
 
 	}
 
