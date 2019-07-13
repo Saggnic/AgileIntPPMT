@@ -14,7 +14,6 @@
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.ProjectIdExceptionResponse"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.ProjectIdException"/>
 <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
 <fullyQualifiedTypeName name="javax.persistence.Entity"/>
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
@@ -50,7 +49,6 @@
 <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.service.MapValidationErrorService"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.domain.ProjectTask"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
 <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.ProjectIdentifierNotFoundException"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
 <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
+<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.domain.ProjectTask"/>
 </qualifiedTypeNameHistroy>
