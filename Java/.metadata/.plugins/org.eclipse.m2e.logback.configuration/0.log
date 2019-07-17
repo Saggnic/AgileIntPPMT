@@ -2892,3 +2892,10 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2019-07-14 08:35:17,059 [Worker-19: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Boot+React\Java\ppmtool-1\src\test\resources
 2019-07-14 13:14:25,426 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2019-07-14 17:42:42,992 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2019-07-15 21:15:46,152 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2019-07-17 06:41:41,975 [Worker-7: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2019-07-17 06:56:46,231 [Worker-12: Launching ppmtool-1 - Ppmtool1Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-07-17 06:56:46,243 [Worker-12: Launching ppmtool-1 - Ppmtool1Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-07-17 06:56:46,320 [Worker-12: Launching ppmtool-1 - Ppmtool1Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-07-17 06:56:46,330 [Worker-12: Launching ppmtool-1 - Ppmtool1Application] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-07-17 06:56:46,331 [Worker-12: Launching ppmtool-1 - Ppmtool1Application] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Boot+React\Java\ppmtool-1\src\test\resources
