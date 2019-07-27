@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/**/*.jpg",
 				"/**/*.html",
 				"/**/*.css",
-				"/favicon.ico").permitAll().anyRequest().authenticated();
+				"/favicon.ico",
+				"/api/users/**").permitAll().anyRequest().authenticated();
 	}
 	
 
