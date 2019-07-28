@@ -8,5 +8,9 @@ import com.agileintelligence.ppmtool.domain.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
 	
+	User findByUsername(String name);
+	User getById(Long id);
+	
+	
 
 }
