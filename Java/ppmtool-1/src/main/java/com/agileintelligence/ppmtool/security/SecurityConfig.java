@@ -1,5 +1,6 @@
 package com.agileintelligence.ppmtool.security;
 
+import com.agileintelligence.ppmtool.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,47 +13,68 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.agileintelligence.ppmtool.service.CustomUserDetailsService;
+import static com.agileintelligence.ppmtool.security.SecurityConstants.H2_URL;
+import static com.agileintelligence.ppmtool.security.SecurityConstants.SIGN_UP_URLS;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {return  new JwtAuthenticationFilter();}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-		authenticationManagerBuilder.userDetailsService(customUserDetailsService)
-				.passwordEncoder(bcryptPasswordEncoder);
+    @Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    }
 
-	}
-	
+    @Override
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
-	@Override
-	@Bean(BeanIds.AUTHENTICATION_MANAGER)
-	public AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-		
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .headers().frameOptions().sameOrigin() //To enable H2 Database
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js"
+                ).permitAll()
+                .antMatchers(SIGN_UP_URLS).permitAll()
+                .antMatchers(H2_URL).permitAll()
+                .anyRequest().authenticated();
 
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/", "/**/*.png", "/**/*.js", "/**/*.gif", "/**/*.svg", "/**/*.jpg",
-						"/**/*.html", "/**/*.css", "/favicon.ico", "/api/users/**")
-				.permitAll().anyRequest().authenticated();
-	}
-
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
 }
