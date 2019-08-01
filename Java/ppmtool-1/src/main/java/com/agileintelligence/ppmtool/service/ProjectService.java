@@ -4,6 +4,7 @@ import com.agileintelligence.ppmtool.domain.Backlog;
 import com.agileintelligence.ppmtool.domain.Project;
 import com.agileintelligence.ppmtool.domain.User;
 import com.agileintelligence.ppmtool.exception.ProjectIdException;
+import com.agileintelligence.ppmtool.exception.ProjectNotFoundExeption;
 import com.agileintelligence.ppmtool.repository.BacklogRepository;
 import com.agileintelligence.ppmtool.repository.ProjectRepository;
 import com.agileintelligence.ppmtool.repository.UserRepository;
@@ -57,30 +58,40 @@ public class ProjectService {
 
 	}
 
-	public Project findProjectByIdentifier(String projectId) {
+	public Project findProjectByIdentifier(String projectId,String username) {
 
 		Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
 		if (project == null) {
 			throw new ProjectIdException("Project ID '" + projectId + "' does not exist");
-
+		}
+		
+		
+		if(!project.getProjectLeader().equalsIgnoreCase(username)) {
+			throw new ProjectNotFoundExeption("Project doesnot belong to your account");
 		}
 
 		return project;
 	}
 
-	public Iterable<Project> findAllProjects() {
-		return projectRepository.findAll();
+	public Iterable<Project> findAllProjects(String username) {
+		
+		return projectRepository.findAllByProjectLeader(username);
+		
+		//return projectRepository.findAll();
 	}
 
-	public void deleteProjectByIdentifier(String projectid) {
-		Project project = projectRepository.findByProjectIdentifier(projectid.toUpperCase());
+	public void deleteProjectByIdentifier(String projectid,String username) {
+		/*
+		 * Project project =
+		 * projectRepository.findByProjectIdentifier(projectid.toUpperCase());
+		 * 
+		 * if (project == null) { throw new
+		 * ProjectIdException("Cannot Project with ID '" + projectid +
+		 * "'. This project does not exist"); }
+		 */
 
-		if (project == null) {
-			throw new ProjectIdException("Cannot Project with ID '" + projectid + "'. This project does not exist");
-		}
-
-		projectRepository.delete(project);
+		projectRepository.delete(findProjectByIdentifier(projectid,username));
 	}
 
 }
