@@ -2,10 +2,13 @@ package com.agileintelligence.ppmtool.service;
 
 import com.agileintelligence.ppmtool.domain.Backlog;
 import com.agileintelligence.ppmtool.domain.Project;
+import com.agileintelligence.ppmtool.domain.User;
 import com.agileintelligence.ppmtool.exception.ProjectIdException;
 import com.agileintelligence.ppmtool.repository.BacklogRepository;
 import com.agileintelligence.ppmtool.repository.ProjectRepository;
+import com.agileintelligence.ppmtool.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +22,20 @@ public class ProjectService {
 
 	@Autowired
 	private BacklogRepository backlogRepository;
+	
+	@Autowired
+	private UserRepository userRepo;
+	
 
-	public Project saveOrUpdateProject(Project project) {
+	public Project saveOrUpdateProject(Project project,String username) {
 		try {
+			
+			User user= userRepo.findByUsername(username);
+			project.setUser(user);
+			project.setProjectLeader(username.toUpperCase());
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
+			
 			if (project.getId() == null) {
 				Backlog backlog = new Backlog();
 				project.setBacklog(backlog);
