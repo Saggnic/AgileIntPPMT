@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.security.crypto.bcrypt.BCrypt"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.service.UserService"/>
-<fullyQualifiedTypeName name="javax.validation.Valid"/>
-<fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
-<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseStatus"/>
-<fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.UserNameAlreadyExistsResponse"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.UserNameAlreadyExistsException"/>
-<fullyQualifiedTypeName name="javax.validation.Validator"/>
 <fullyQualifiedTypeName name="org.springframework.validation.Validator"/>
 <fullyQualifiedTypeName name="validatior.UserValidator"/>
 <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.repository.UserRepository"/>
 <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
 <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
 <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
@@ -46,11 +33,9 @@
 <fullyQualifiedTypeName name="io.jsonwebtoken.Claims"/>
 <fullyQualifiedTypeName name="org.springframework.web.filter.OncePerRequestFilter"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.security.JwtTokenProvider"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.service.CustomUserDetailsService"/>
 <fullyQualifiedTypeName name="org.springframework.util.StringUtils"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.service.SecurityConstants"/>
-<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.domain.User"/>
 <fullyQualifiedTypeName name="org.springframework.security.authentication.UsernamePasswordAuthenticationToken"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
@@ -60,4 +45,19 @@
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.security.JwtAuthenticationFilter"/>
 <fullyQualifiedTypeName name="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"/>
 <fullyQualifiedTypeName name="com.agileintelligence.ppmtool.security.SecurityConstants"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.domain.Project"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+<fullyQualifiedTypeName name="javax.persistence.FetchType"/>
+<fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
+<fullyQualifiedTypeName name="java.security.Principal"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.repository.UserRepository"/>
+<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.domain.User"/>
+<fullyQualifiedTypeName name="java.lang.Iterable"/>
+<fullyQualifiedTypeName name="com.agileintelligence.ppmtool.exception.ProjectNotFoundExeption"/>
 </qualifiedTypeNameHistroy>
