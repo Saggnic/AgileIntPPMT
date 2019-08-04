@@ -1,5 +1,6 @@
 package com.agileintelligence.ppmtool.web;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -38,23 +39,24 @@ public class BacklogController {
 	// project
 	@PostMapping("/{backlog_id}")
 	public ResponseEntity<?> addPTtoBacklog(@Valid @RequestBody ProjectTask projectTask, BindingResult bindingResult,
-			@PathVariable String backlog_id) {
+			@PathVariable String backlog_id ,Principal principal) {
 
 		ResponseEntity<?> errorMap = mapValidationService.mapValidatinService(bindingResult);
 		if (errorMap != null) {
 			return errorMap;
 		}
 
-		ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id, projectTask);
+		ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id, projectTask,
+				principal.getName());
 
 		return new ResponseEntity<ProjectTask>(projectTask1, HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/{backlog_id}")
-	public Iterable<ProjectTask> getProjectbacklog(@PathVariable String backlog_id) {
+	public Iterable<ProjectTask> getProjectbacklog(@PathVariable String backlog_id,Principal principal) {
 
-		return projectTaskService.findBacklogById(backlog_id);
+		return projectTaskService.findBacklogById(backlog_id, principal.getName());
 
 	}
 

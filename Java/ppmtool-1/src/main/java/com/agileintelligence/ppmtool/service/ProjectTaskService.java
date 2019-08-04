@@ -26,8 +26,11 @@ public class ProjectTaskService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private ProjectService projectService; 
 
-	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
+	public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask,String username) {
 
 		// All Project tasks to be added to a specific project i.e project !=null
 		// If project is null, BackLog also exists
@@ -40,8 +43,12 @@ public class ProjectTaskService {
 		// Same for status
 
 		try {
-			Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+			//Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
 
+			//after JWT
+			Backlog backlog = projectService.findProjectByIdentifier(projectIdentifier, 
+					username).getBacklog();
+			
 			projectTask.setBacklog(backlog);
 
 			Integer backlogSequence = backlog.getPTSequence();
@@ -65,12 +72,10 @@ public class ProjectTaskService {
 
 	}
 
-	public Iterable<ProjectTask> findBacklogById(String backlog_id) {
+	public Iterable<ProjectTask> findBacklogById(String backlog_id, String username) {
 		Project project = projectRepository.findByProjectIdentifier(backlog_id);
 
-		if (project == null) {
-			throw new ProjectIdentifierNotFoundException("Project Id is '" + backlog_id + "'  not found");
-		}
+		projectService.findProjectByIdentifier(backlog_id, username);
 		return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
 
 	}
