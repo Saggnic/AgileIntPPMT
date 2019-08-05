@@ -30,6 +30,7 @@ public class ProjectService {
 
 	public Project saveOrUpdateProject(Project project,String username) {
 		
+		//if the project is existing check if the user is authorized
 		if(project.getId()!=null) {
 			Project existingProject =projectRepository.findByProjectIdentifier(project.getProjectIdentifier());
 			
@@ -58,6 +59,7 @@ public class ProjectService {
 
 			}
 
+			//if project is existing then update the project and set the new backlog
 			else {
 				project.setBacklog(backlogRepository.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()));
 
