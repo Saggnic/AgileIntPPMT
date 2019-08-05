@@ -61,31 +61,34 @@ public class BacklogController {
 	}
 
 	@GetMapping("{backlog_id}/{pt_id}")
-	public ResponseEntity<?> getProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id) {
+	public ResponseEntity<?> getProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id,
+			Principal principal) {
 
-		ProjectTask projectTask = projectTaskService.findPTBySequence(backlog_id, pt_id);
+		ProjectTask projectTask = projectTaskService.findPTBySequence(backlog_id, pt_id,principal.getName());
 		return new ResponseEntity<ProjectTask>(projectTask, HttpStatus.OK);
 
 	}
 
 	@PatchMapping("/{backlog_id}/{pt_id}")
 	public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult bindingResult,
-			@PathVariable String backlog_id, @PathVariable String pt_id) {
+			@PathVariable String backlog_id, @PathVariable String pt_id,Principal principal) {
 
 		ResponseEntity<?> errorMap = mapValidationService.mapValidatinService(bindingResult);
 		if (errorMap != null) {
 			return errorMap;
 		}
 
-		ProjectTask updatedTask = projectTaskService.updateProjectSequence(projectTask, backlog_id, pt_id);
+		ProjectTask updatedTask = projectTaskService.updateProjectSequence(projectTask, backlog_id, pt_id,
+				principal.getName());
 
 		return new ResponseEntity<ProjectTask>(updatedTask, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{backlog_id}/{pt_id}")
-	public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id) {
+	public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id,
+			Principal principal) {
 
-		projectTaskService.deletePTByProjectSequence(backlog_id, pt_id);
+		projectTaskService.deletePTByProjectSequence(backlog_id, pt_id,principal.getName());
 		return new ResponseEntity<String>("Project task '" + pt_id + "' was successfully deleted", HttpStatus.OK);
 
 	}
