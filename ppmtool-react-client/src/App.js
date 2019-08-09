@@ -17,7 +17,7 @@ import Login from "./components/UserManagement/Login";
 import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
-import { logOut } from "./actions/securityActions";
+import { logout } from "./actions/securityActions";
 
 //when we move to next page the token is lost. So we mention the token in App.js so that it stays in the meeting place of all pages.
 const jwtToken = localStorage.jwtToken;
@@ -32,7 +32,7 @@ if (jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decode_jwtToken.exp < currentTime) {
     //handle logout
-    store.dispatch(logOut());
+    store.dispatch(logout());
     window.location.href = "/";
   }
 }
