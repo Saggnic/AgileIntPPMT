@@ -49,16 +49,6 @@ class AddProject extends Component {
 
     return (
       <div>
-        {
-          //check name attribute input fields
-          //create constructor
-          //set state
-          //set value on input fields
-          //create onChange function
-          //set onChange on each input field
-          //bind on constructor
-          //check state change in the react extension
-        }
         <div className="project">
           <div className="container">
             <div className="row">
@@ -69,7 +59,7 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control form-control-lg ", {
+                      className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.projectName
                       })}
                       placeholder="Project Name"
@@ -86,8 +76,8 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control form-control-lg ", {
-                        "is-invalid": errors.projectName
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.projectIdentifier
                       })}
                       placeholder="Unique Project ID"
                       name="projectIdentifier"
@@ -102,8 +92,8 @@ class AddProject extends Component {
                   </div>
                   <div className="form-group">
                     <textarea
-                      className={classnames("form-control form-control-lg ", {
-                        "is-invalid": errors.projectName
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.description
                       })}
                       placeholder="Project Description"
                       name="description"
